@@ -71,7 +71,7 @@ bot.onText(/\/myid/, (msg, match) => {
 
 bot.onText(/\/subs/, (msg, match) => {
     // 'msg' is the received Message from Telegram
-    // 'match' is the result of executing the regexp above on the text content
+    // 'match' is the result of executing the regexp above on the text contentgit
     // of the message
     const chatId = msg.chat.id;
     const ids = readMsdIds() 

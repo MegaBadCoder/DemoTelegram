@@ -55,7 +55,7 @@ app.use(bodyParser())
 app.use(router.routes())
 
 const TELEGRAM_TOKEN = '562967730:AAGUjboO2zrMSGKA-Xd3CEYptTyO1ayiRHI';
-const TG_WEBHOOK = `http://sapienstalk.online`;
+const TG_WEBHOOK = `https://sapienstalk.online`;
 
 const bot = new TelegramBot(TELEGRAM_TOKEN)
 bot.setWebHook(TG_WEBHOOK)

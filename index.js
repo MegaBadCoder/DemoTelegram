@@ -20,7 +20,7 @@ function sendMessagesByMergeRequest(mrInfo) {
     const { object_attributes: { source_branch, merge_status, description, target_branch, state }} = mrInfo
     if (state !== 'merged') return;
     chatIds.forEach(id => {
-        bot.sendMessage(id, `${source_branch} в ${target_branch}. Описание: ${description}`);
+        bot.sendMessage(id, `${source_branch} в ${target_branch}. Описание: ${description}`);w
     })
 
     console.log('Уведомление о MR отправлено')
@@ -55,7 +55,7 @@ app.use(bodyParser())
 app.use(router.routes())
 
 const TELEGRAM_TOKEN = '562967730:AAGUjboO2zrMSGKA-Xd3CEYptTyO1ayiRHI';
-const TG_WEBHOOK = `https://ovz1.seliverstoviv.vpljm.vps.myjino.ru`;
+const TG_WEBHOOK = `http://sapienstalk.online`;
 
 const bot = new TelegramBot(TELEGRAM_TOKEN)
 bot.setWebHook(TG_WEBHOOK)

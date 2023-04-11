@@ -15,14 +15,13 @@ function writeId(id) {
 };
 
 function sendMessagesByMergeRequest(mrInfo) {
-    const chatIds = readMsdIds();
+    // const chatIds = readMsdIds();
     if (mrInfo.event_type !== 'merge_request') return;
     const { object_attributes: { source_branch, merge_status, description, target_branch, state }} = mrInfo
     if (state !== 'merged') return;
-    chatIds.forEach(id => {
-        bot.sendMessage(id, `${source_branch} в ${target_branch}. Описание: ${description}`);w
-    })
-
+    bot.sendMessage('-1001686079178', `${source_branch} в ${target_branch}. Описание: ${description}`);w
+    // chatIds.forEach(id => {
+    // })
     console.log('Уведомление о MR отправлено')
 };
 
@@ -99,9 +98,9 @@ bot.on('message', (msg) => {
 
 app.listen(3000, () => {
     console.log('Listening')
-    const chatIds = readMsdIds();
+    // const chatIds = readMsdIds();
 
-    chatIds.forEach(id => {
-        bot.sendMessage(id, 'Я работаю и снова готов служить вам, люди!');
-    })
+    // chatIds.forEach(id => {
+    //     bot.sendMessage(id, 'Я работаю и снова готов служить вам, люди!');
+    // })
 })

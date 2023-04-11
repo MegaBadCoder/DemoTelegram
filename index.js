@@ -34,6 +34,7 @@ const router = Router();
 router.post('/bot', ctx => {
     try {
         const { body } = ctx.request;
+        console.log(body)
         sendMessagesByMergeRequest(body);
     } catch (e) {
         console.log(e)

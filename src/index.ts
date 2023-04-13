@@ -39,10 +39,12 @@ function sendMessagesByMergeRequest(mrInfo: any) {
     const parser = new MrParser('');
     // const chatIds = readMsdIds();
     if (mrInfo?.event_type !== 'merge_request') return;
-    const { object_attributes: { source_branch, description, target_branch, state }} = mrInfo
+    const { object_attributes: { source_branch, target_branch, state }} = mrInfo
     if (state !== 'merged') return;
-    bot.sendMessage(MAIN_CHAT_ID, 
-        parser.pasteYouTrackLink(`Выполнен Merge Request\n\n${source_branch} в ${target_branch}. Описание: ${description}`)
+    bot.sendMessage(
+        MAIN_CHAT_ID, 
+        parser.pasteYouTrackLink(`Выполнен Merge Request\n\n${source_branch} в ${target_branch}`),
+        { parse_mode: 'Markdown' }
     );
     // chatIds.forEach(id => {
     // })

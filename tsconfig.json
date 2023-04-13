@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "module": "ESNext",
+        "useDefineForClassFields": true,
+        "lib": ["es6"],
+        "rootDir": "./src",
+        "moduleResolution": "Node",
+        "target": "es6",
+        "sourceMap": true,
+        "outDir": "dist",
+        "strict": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "esModuleInterop": true,
+        "noEmit": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitReturns": true,
+        "skipLibCheck": true
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "__test__/*"],
+    "ts-node": {
+        "compilerOptions": {
+            "module": "commonjs"
+        }
+      }
+}

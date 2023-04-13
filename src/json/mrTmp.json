@@ -1,0 +1,128 @@
+{
+    "object_kind": "merge_request",
+    "event_type": "merge_request",
+    "user": {
+      "id": 30,
+      "name": "Ilya Seliverstov",
+      "username": "I.Seliverstov",
+      "avatar_url": "https://gitlab.citynature.ru/uploads/-/system/user/avatar/30/avatar.png",
+      "email": "[REDACTED]"
+    },
+    "project": {
+      "id": 64,
+      "name": "gitlab-bot",
+      "description": "",
+      "web_url": "https://gitlab.citynature.ru/citynature/gitlab-bot",
+      "avatar_url": null,
+      "git_ssh_url": "git@gitlab.citynature.ru:citynature/gitlab-bot.git",
+      "git_http_url": "https://gitlab.citynature.ru/citynature/gitlab-bot.git",
+      "namespace": "citynature",
+      "visibility_level": 0,
+      "path_with_namespace": "citynature/gitlab-bot",
+      "default_branch": "master",
+      "ci_config_path": "",
+      "homepage": "https://gitlab.citynature.ru/citynature/gitlab-bot",
+      "url": "git@gitlab.citynature.ru:citynature/gitlab-bot.git",
+      "ssh_url": "git@gitlab.citynature.ru:citynature/gitlab-bot.git",
+      "http_url": "https://gitlab.citynature.ru/citynature/gitlab-bot.git"
+    },
+    "object_attributes": {
+      "assignee_id": null,
+      "author_id": 30,
+      "created_at": "2023-04-11 16:49:36 UTC",
+      "description": "",
+      "head_pipeline_id": null,
+      "id": 9591,
+      "iid": 2,
+      "last_edited_at": null,
+      "last_edited_by_id": null,
+      "merge_commit_sha": "d12666d62b41404b9a00727ba0fad3f6316d88fa",
+      "merge_error": null,
+      "merge_params": {
+        "force_remove_source_branch": "1"
+      },
+      "merge_status": "can_be_merged",
+      "merge_user_id": null,
+      "merge_when_pipeline_succeeds": false,
+      "milestone_id": null,
+      "source_branch": "test-mr",
+      "source_project_id": 64,
+      "state_id": 3,
+      "target_branch": "master",
+      "target_project_id": 64,
+      "time_estimate": 0,
+      "title": "SE-fix",
+      "updated_at": "2023-04-11 16:49:40 UTC",
+      "updated_by_id": null,
+      "url": "https://gitlab.citynature.ru/citynature/gitlab-bot/-/merge_requests/2",
+      "source": {
+        "id": 64,
+        "name": "gitlab-bot",
+        "description": "",
+        "web_url": "https://gitlab.citynature.ru/citynature/gitlab-bot",
+        "avatar_url": null,
+        "git_ssh_url": "git@gitlab.citynature.ru:citynature/gitlab-bot.git",
+        "git_http_url": "https://gitlab.citynature.ru/citynature/gitlab-bot.git",
+        "namespace": "citynature",
+        "visibility_level": 0,
+        "path_with_namespace": "citynature/gitlab-bot",
+        "default_branch": "master",
+        "ci_config_path": "",
+        "homepage": "https://gitlab.citynature.ru/citynature/gitlab-bot",
+        "url": "git@gitlab.citynature.ru:citynature/gitlab-bot.git",
+        "ssh_url": "git@gitlab.citynature.ru:citynature/gitlab-bot.git",
+        "http_url": "https://gitlab.citynature.ru/citynature/gitlab-bot.git"
+      },
+      "target": {
+        "id": 64,
+        "name": "gitlab-bot",
+        "description": "",
+        "web_url": "https://gitlab.citynature.ru/citynature/gitlab-bot",
+        "avatar_url": null,
+        "git_ssh_url": "git@gitlab.citynature.ru:citynature/gitlab-bot.git",
+        "git_http_url": "https://gitlab.citynature.ru/citynature/gitlab-bot.git",
+        "namespace": "citynature",
+        "visibility_level": 0,
+        "path_with_namespace": "citynature/gitlab-bot",
+        "default_branch": "master",
+        "ci_config_path": "",
+        "homepage": "https://gitlab.citynature.ru/citynature/gitlab-bot",
+        "url": "git@gitlab.citynature.ru:citynature/gitlab-bot.git",
+        "ssh_url": "git@gitlab.citynature.ru:citynature/gitlab-bot.git",
+        "http_url": "https://gitlab.citynature.ru/citynature/gitlab-bot.git"
+      },
+      "last_commit": {
+        "id": "38e65871b672d3525a220fba43a7a2085532bea4",
+        "message": "SE-fix\n",
+        "title": "SE-fix",
+        "timestamp": "2023-04-11T19:44:03+03:00",
+        "url": "https://gitlab.citynature.ru/citynature/gitlab-bot/-/commit/38e65871b672d3525a220fba43a7a2085532bea4",
+        "author": {
+          "name": "i.seliverstov",
+          "email": "i.seliverstov@sellerexpert.ru"
+        }
+      },
+      "work_in_progress": false,
+      "total_time_spent": 0,
+      "time_change": 0,
+      "human_total_time_spent": null,
+      "human_time_change": null,
+      "human_time_estimate": null,
+      "assignee_ids": [
+  
+      ],
+      "state": "merged",
+      "blocking_discussions_resolved": true
+    },
+    "labels": [
+  
+    ],
+    "changes": {
+    },
+    "repository": {
+      "name": "gitlab-bot",
+      "url": "git@gitlab.citynature.ru:citynature/gitlab-bot.git",
+      "description": "",
+      "homepage": "https://gitlab.citynature.ru/citynature/gitlab-bot"
+    }
+  }

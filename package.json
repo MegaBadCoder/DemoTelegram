@@ -4,11 +4,45 @@
   "main": "index.js",
   "author": "i.seliverstov",
   "license": "MIT",
+  "scripts": {
+    "build": "tsc --build",
+    "start": "ts-node-dev src/index.ts",
+    "test": "NODE_ENV=test PORT=3000 jest",
+    "test:watch": "npm run test -- --watchAll"
+  },
   "dependencies": {
+    "@babel/eslint-parser": "^7.21.3",
+    "@babel/preset-typescript": "^7.21.4",
+    "@types/jest": "^29.5.0",
+    "@types/koa-bodyparser": "^4.3.10",
+    "@types/koa-logger": "^3.1.2",
+    "@types/koa-router": "^7.4.4",
+    "@types/koa2-cors": "^2.0.2",
+    "@types/node": "^18.15.11",
+    "@types/node-telegram-bot-api": "^0.61.6",
+    "@typescript-eslint/eslint-plugin": "^5.58.0",
+    "@typescript-eslint/parser": "^5.58.0",
+    "jest": "^29.5.0",
     "koa": "^2.14.1",
     "koa-bodyparser": "^4.3.0",
+    "koa-logger": "^3.2.1",
     "koa-router": "^12.0.0",
+    "koa2-cors": "^2.0.6",
     "node-telegram-bot-api": "^0.60.0",
-    "telegraf": "^4.11.2"
+    "nodemon": "^2.0.22",
+    "redis": "^4.6.5",
+    "supertest": "^6.3.3",
+    "telegraf": "^4.11.2",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/node": "^7.17.10",
+    "@babel/plugin-proposal-decorators": "*",
+    "@babel/preset-env": "^7.18.2",
+    "@types/koa": "^2.13.6",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.4"
   }
 }

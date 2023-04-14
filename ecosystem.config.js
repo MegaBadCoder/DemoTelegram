@@ -2,7 +2,7 @@ module.exports = {
     apps: [
         {
             name: 'Telegram Bot',
-            scripts: '/src/index.ts',
+            scripts: './src/index.ts',
             interpreter: 'ts-node',
             args: '--transpile-only',
             watch: true,

@@ -10,7 +10,7 @@ const router = new Router();
 
 const PORT = process.env.PORT || 3000
 const HOST = process.env.HOST || 'https://sapienstalk.online'
-const MAIN_CHAT_ID = process.env.MAIN_CHAT_ID || '248747115';
+const MAIN_CHAT_ID = process.env.MAIN_CHAT_ID || '-1001686079178';
 const TELEGRAM_TOKEN = '562967730:AAGUjboO2zrMSGKA-Xd3CEYptTyO1ayiRHI';
 const TG_WEBHOOK = `${HOST}/telegram`;
 

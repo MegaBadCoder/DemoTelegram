@@ -8,7 +8,8 @@
     "build": "tsc --build",
     "start": "ts-node-dev src/index.ts",
     "test": "NODE_ENV=test PORT=3000 jest",
-    "test:watch": "npm run test -- --watchAll"
+    "test:watch": "npm run test -- --watchAll",
+    "watch-server": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node ./src/index.ts"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.21.3",

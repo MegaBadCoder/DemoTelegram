@@ -10,7 +10,7 @@ const router = new Router();
 
 const PORT = process.env.PORT || 3000
 const HOST = process.env.HOST || 'https://sapienstalk.online'
-const MAIN_CHAT_ID = process.env.MAIN_CHAT_ID || '-1001686079178';
+const MAIN_CHAT_ID = process.env.MAIN_CHAT_ID || '248747115';
 const TELEGRAM_TOKEN = '562967730:AAGUjboO2zrMSGKA-Xd3CEYptTyO1ayiRHI';
 const TG_WEBHOOK = `${HOST}/telegram`;
 
@@ -36,14 +36,11 @@ router.post('/bot', ctx => {
 })
 
 function sendMessagesByMergeRequest(mrInfo: any) {
-    const parser = new MrParser('');
-    // const chatIds = readMsdIds();
     if (mrInfo?.event_type !== 'merge_request') return;
-    const { object_attributes: { source_branch, target_branch, state }} = mrInfo
-    if (state !== 'merged') return;
+    const parser = new MrParser(mrInfo);
     bot.sendMessage(
         MAIN_CHAT_ID, 
-        parser.pasteYouTrackLink(`Выполнен Merge Request\n\n${source_branch} в ${target_branch}`),
+        parser.createMessageTelegram(),
         { parse_mode: 'Markdown' }
     );
     // chatIds.forEach(id => {

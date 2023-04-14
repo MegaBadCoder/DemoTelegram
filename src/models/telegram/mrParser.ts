@@ -1,12 +1,12 @@
 function truncateString(str: string): string {
     if (str.length > 120) {
-      return str.slice(0, 117) + '...';
+        return str.slice(0, 117) + '...';
     } else {
-      return str;
+        return str;
     }
 }
 export class MrParser {
-    mr: any
+    mr: any;
     taskManagerLink: string;
 
     constructor(mr: any) {
@@ -17,7 +17,7 @@ export class MrParser {
         return this.pastTaskLink(this.mr.object_attributes.title);
     }
     getDescription() {
-        return truncateString(this.mr.object_attributes.description.length);
+        return truncateString(this.mr.object_attributes.description);
     }
     getVerifUserName() {
         return this.mr.user.name;
@@ -35,7 +35,7 @@ export class MrParser {
         return {
             name,
             url
-        }
+        };
     }
 
     makeTelegramLink(text: string, link: string): string {
@@ -43,7 +43,7 @@ export class MrParser {
     }
 
     createMessageTelegram() {
-        const descr = this.getDescription();
+        const descr = this.pastTaskLink(this.getDescription());
         const {name, url} = this.getMainProjectInfo();
         return [
             '*Выполнен Merge Request*\n',
@@ -57,6 +57,6 @@ export class MrParser {
 
     pastTaskLink(text: string): string {
         const regex = /(\bSE-\d+\b)/gi;
-        return text = text.replace(regex, `[$1](${this.taskManagerLink}/$1)`)
+        return text = text.replace(regex, `[$1](${this.taskManagerLink}/$1)`);
     }
 }

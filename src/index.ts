@@ -1,25 +1,30 @@
-import Koa from 'koa'
+import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import Router from 'koa-router';
-import TelegramBot from 'node-telegram-bot-api'
-import logger from 'koa-logger'
+import TelegramBot from 'node-telegram-bot-api';
+import logger from 'koa-logger';
 import { MrParser } from './models/telegram/mrParser';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = new Koa();
 const router = new Router();
 
-const PORT = process.env.PORT || 3000
-const HOST = process.env.HOST || 'https://sapienstalk.online'
-const MAIN_CHAT_ID = process.env.MAIN_CHAT_ID || '-1001686079178';
+console.log(process.env.HOST);
+
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || 'https://sapienstalk.online';
+const MAIN_CHAT_ID = process.env.CHATID || '-1001686079178';
 const TELEGRAM_TOKEN = '562967730:AAGUjboO2zrMSGKA-Xd3CEYptTyO1ayiRHI';
 const TG_WEBHOOK = `${HOST}/telegram`;
 
-const bot = new TelegramBot(TELEGRAM_TOKEN)
-bot.setWebHook(TG_WEBHOOK)
+const bot = new TelegramBot(TELEGRAM_TOKEN);
+bot.setWebHook(TG_WEBHOOK);
 
 app.use(logger());
 app.use(bodyParser());
-app.use(router.routes())
+app.use(router.routes());
 
 /* eslint-disable */
 router.post('/bot', ctx => {
@@ -36,15 +41,15 @@ router.post('/bot', ctx => {
 })
 
 function sendMessagesByMergeRequest(mrInfo: any) {
-    if (mrInfo?.event_type !== 'merge_request') return;
     const parser = new MrParser(mrInfo);
+    
+    if (mrInfo?.event_type !== 'merge_request' && mrInfo?.object_attributes.state !== 'merged') return;
+    
     bot.sendMessage(
         MAIN_CHAT_ID, 
         parser.createMessageTelegram(),
         { parse_mode: 'Markdown' }
     );
-    // chatIds.forEach(id => {
-    // })
 };
 // app.use(pm2 install typescript
 //     cors({

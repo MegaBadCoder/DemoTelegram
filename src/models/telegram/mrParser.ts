@@ -14,7 +14,7 @@ export class MrParser {
         this.taskManagerLink = 'https://youtrack.citynature.ru/issue';
     }
     getTitle() {
-        return this.mr.object_attributes.title;
+        return this.pastTaskLink(this.mr.object_attributes.title);
     }
     getDescription() {
         return truncateString(this.mr.object_attributes.description.length);
@@ -47,10 +47,11 @@ export class MrParser {
         const {name, url} = this.getMainProjectInfo();
         return [
             '*Выполнен Merge Request*\n',
+            `${this.getSourceAndTargetBranch()}\n`,
             `*Заголовок:* ${this.getTitle()}`,
             `*Описание:* ${descr || 'Отсутствует'}`,
-            this.getSourceAndTargetBranch(),
-            `*Проект:* ${this.makeTelegramLink(name, url)}`
+            `*Пользователь:* ${this.getVerifUserName() || 'Отсутствует'}`,
+            `*Проект:* ${this.makeTelegramLink(name, url)}`,
         ].join('\n');
     }
 

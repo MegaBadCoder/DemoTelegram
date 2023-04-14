@@ -3,8 +3,8 @@ module.exports = {
         {
             name: 'Telegram Bot',
             script: './src/index.ts',
-            interpreter: 'ts-node',
-            args: '--transpile-only',
+            // interpreter: 'ts-node',
+            // args: '--transpile-only',
             watch: true,
             env: {
                 NODE_ENV: 'production'

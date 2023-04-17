@@ -25,6 +25,6 @@ describe('mrParser', () => {
 
     test('Проверка на сообщения', () => {
         expect(parser.createMessageTelegram())
-            .toBe(`*Выполнен Merge Request*\n\n*Заголовок:* SE-fix\n*Описание:* Отсутствует\nИз test-mr в master\n*Проект:* [gitlab-bot](https://gitlab.citynature.ru/citynature/gitlab-bot)`);
-    })
+            .toBe('*Выполнен Merge Request*\n\n*Заголовок:* SE-fix\n*Описание:* Отсутствует\nИз test-mr в master\n*Проект:* [gitlab-bot](https://gitlab.citynature.ru/citynature/gitlab-bot)');
+    });
 });

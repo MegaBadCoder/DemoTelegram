@@ -43,7 +43,8 @@ router.post('/bot', ctx => {
 function sendMessagesByMergeRequest(mrInfo: any) {
     const parser = new MrParser(mrInfo);
     
-    if (mrInfo?.event_type !== 'merge_request' && mrInfo?.object_attributes.state !== 'merged') return;
+    if (mrInfo?.event_type !== 'merge_request') return;
+    if (mrInfo?.object_attributes.state !== 'merged') return;
     
     bot.sendMessage(
         MAIN_CHAT_ID, 

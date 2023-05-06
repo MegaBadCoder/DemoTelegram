@@ -18,7 +18,7 @@
         "noImplicitReturns": true,
         "skipLibCheck": true
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "migrations/202305060905-create_user.ts", "models/User.ts"],
     "exclude": ["node_modules", "__test__/*"],
     "ts-node": {
         "compilerOptions": {

@@ -33,7 +33,10 @@
     "koa2-cors": "^2.0.6",
     "node-telegram-bot-api": "^0.60.0",
     "nodemon": "^2.0.22",
+    "pg": "^8.10.0",
+    "pg-hstore": "^2.3.4",
     "redis": "^4.6.5",
+    "sequelize": "^6.31.1",
     "supertest": "^6.3.3",
     "telegraf": "^4.11.2",
     "ts-jest": "^29.1.0",
@@ -45,6 +48,7 @@
     "@babel/plugin-proposal-decorators": "*",
     "@babel/preset-env": "^7.18.2",
     "@types/koa": "^2.13.6",
+    "@types/sequelize": "^4.28.15",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4"
   }

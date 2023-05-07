@@ -17,9 +17,6 @@ telegram.post('/telegram', async ctx => {
         const { message: { text, chat }}: any = body;
         const { type, first_name, id } = chat;
         
-        console.log(text)
-        console.log(first_name, id)
-        console.log(1, parser.parse(text))
         if (parser.parse(text) === 'start') {
             await userContoller.checkUserOrCreate(id, first_name)
         } else if (parser.parse(text) === 'resp_review') {
@@ -27,6 +24,7 @@ telegram.post('/telegram', async ctx => {
         } else if (parser.parse(text) === 'gen_descr') {
             await userContoller.setStateId(id, 2)
         }
+        
         
         ctx.status = 200;
         if (type !== 'private') return;

@@ -18,7 +18,7 @@ const databaseConfig = new Sequelize({
   timezone: '+00:00',
   logging: console.log,
   define: {
-    timestamps: false,
+    // timestamps: false,
     freezeTableName: true,
   }
 });

@@ -2,14 +2,6 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../config/database'
 
 class User extends Model {
-  public id!: number;
-  public username!: string;
-  public stateId!: number;
-  public email!: string;
-  public createdAt!: Date;
-  public updatedAt!: Date;
-  // public createdAt!: Date;
-  // public updatedAt!: Date;
 }
 
 User.init(
@@ -28,7 +20,7 @@ User.init(
       allowNull: true,
     },
     stateId: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     chatId: {

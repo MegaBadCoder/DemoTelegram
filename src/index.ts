@@ -22,7 +22,6 @@ const TELEGRAM_TOKEN = '562967730:AAGUjboO2zrMSGKA-Xd3CEYptTyO1ayiRHI';
 const TG_WEBHOOK = `${HOST}/telegram`;
 
 const bot = new TelegramBot(TELEGRAM_TOKEN);
-
 bot.setWebHook(TG_WEBHOOK);
 
 app.use(logger());
@@ -62,7 +61,6 @@ function sendMessagesByMergeRequest(mrInfo: any) {
 // const 
 (async () => {
   try {
-    // console.log(sequelize)
     await sequelize.authenticate();
     console.log('Connection to the database has been established successfully.');
     await sequelize.sync();

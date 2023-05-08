@@ -20,7 +20,7 @@ const requestBody = (prompt: string) => ({
         }
     ],
     model: 'gpt-3.5-turbo',
-    max_tokens: 150,
+    max_tokens: 750,
     n: 1,
     stop: null,
     temperature: 0.7
@@ -42,19 +42,19 @@ const reviewPrompt = (text: string) => ({
     ]
 })
 
-const reviewDescr = (productName: string, kw: string) => ({
-    target: 'Представь что ты лучший копирайтер с большим опытом работы и напиши описание товара с ключевыми словами внутри фигурных скобок {}',
-    type_answer_ai_bot: 'Ответ дай строго в формате JSON и следуй инструкция что указаны в свойстве rules',
+const reviewDescr = (productName: string, kw: string[] | undefined) => ({
+    target: 'Представь что ты лучший копирайтер с большим опытом работы и напиши описание товара с ключевыми словами которые указаны в свойстве key_word_list',
+    type_answer_ai_bot: 'Cледуй инструкция что указаны в свойстве rules',
     productName: productName,
-    key_word_list: kw,
+    key_word_list: kw?.join(','),
     language: "russian",
     rules: [
         'Cтрого соблюдай нижеуказанные правила',
         'Название товара находится в свойстве productName',
         'В сгенерированном описание желательно чтобы находились слова из свойства key_word_list',
-        'Максимальное кол-во символов в описание 10000',
-        'Присылать только сгенерированный текст описания',
-    ]
+        'Максимальное кол-во символов в описание 10000 и напиши максимально большой текст',
+        'Присылать в ответе только сгенерированный текст описания как обычный текст',
+    ],
 })
 export default class ChatGptService {
     public async generateReview(text: string): Promise<any> {
@@ -71,18 +71,22 @@ export default class ChatGptService {
             throw error;
         }
     } 
-    public async generateDescr(productName: string, kw: string): Promise<any> {
+    public async generateDescr(productName: string, kw: string[] | undefined): Promise<any> {
         try {
+            const body = requestBody(JSON.stringify(reviewDescr(productName, kw)))
+            
             const response = await axios.post(
                 topic,
-                requestBody(JSON.stringify(reviewDescr(productName, kw))),
+                body,
                 config
             )
+
+            return response.data.choices[0].message.content;
             
-            return JSON.parse(response.data.choices[0].message.content)
+            // return response.data.choices[0].message.content
         } catch (error) {
             console.log(error);
-            throw error;
+            // throw error;
         }
     } 
 }

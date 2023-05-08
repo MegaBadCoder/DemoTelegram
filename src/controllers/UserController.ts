@@ -6,14 +6,13 @@ const bot = new TelegramBotService();
 export class UserController {
     async getUserInfoByChatId(chatId: number): Promise<User | null> {
         const user = await User.findOne({ where: { chatId }});
-
         if (user) return user;
         else return null;
     }
 
     async checkUserOrCreate(chatId: number, name: string): Promise<Boolean> {
-       
         if (await this.getUserInfoByChatId(chatId)) {
+            bot.sendDefaultStart(chatId);
             return false;
         }
         
@@ -37,9 +36,7 @@ export class UserController {
         const user = await User.findOne({ where: { chatId }});
 
         if (user) {
-            user.name = 'Илюшкин';
             user.stateId = stateId;
-            console.log(123, user.stateId)
             bot.sendSwitchMode(chatId, stateId);
             try {
                 await user.save();

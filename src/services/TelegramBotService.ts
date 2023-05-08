@@ -12,6 +12,9 @@ export class TelegramBotService {
     constructor() {
         this.bot = new TelegramBot(TELEGRAM_TOKEN);
     }
+    sendDefaultStart(chatId: number) {
+        this.sendMessage(chatId, telegramMessages.defSettings)
+    }
 
     sendStartNewUser(chatId: number) {
         this.sendMessage(chatId, telegramMessages.startNewUser)
@@ -23,6 +26,6 @@ export class TelegramBotService {
     }
 
     public sendMessage(chatId: number, text: string) {
-        this.bot.sendMessage(chatId, text, { parse_mode: 'Markdown' })
+        this.bot.sendMessage(chatId, text)
     }
 }

@@ -1,6 +1,7 @@
 // import Comma from '../../models/telegram/mrParser';
 // import mrTmp from '../../json/mrTmp.json';
 import CommandTelegramParser from "../../utils/commandTelegramParser";
+import { splitStringAndRemoveFirstElement } from "../../utils/helpers";
 describe('Telegram Command Parser', () => {
     const telegramParser = new CommandTelegramParser(); 
     // const parser = new MrParser(mrTmp);
@@ -11,6 +12,14 @@ describe('Telegram Command Parser', () => {
         expect(telegramParser.parse('/get_feedback')).toBe('get_feedback')
         expect(telegramParser.parse('/Get_feedback')).toBe('get_feedback')
 
+    })
+
+    test('Функция Split', () => {
+         expect(splitStringAndRemoveFirstElement('Телевизор Samsung 32, Большой, четкий')).toEqual({
+            product: 'телевизор samsung 32',
+            keyWords: ['большой', 'четкий']
+         })
+         expect(splitStringAndRemoveFirstElement('Телевизор Samsung 32')).toBe(false)
     })
 
     // test('Получение текста и вставка ссылки на YouTrack', () => {

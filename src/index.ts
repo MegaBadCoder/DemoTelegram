@@ -5,7 +5,10 @@ import TelegramBot from 'node-telegram-bot-api';
 import logger from 'koa-logger';
 import { MrParser } from './models/telegram/mrParser';
 import dotenv from 'dotenv';
-
+import sequelize from './config/database';
+import telegram from './routes/telegram';
+import cors from '@koa/cors';
+import { checkOrigins } from './configs/cors';
 dotenv.config();
 
 const app = new Koa();
@@ -23,8 +26,12 @@ const bot = new TelegramBot(TELEGRAM_TOKEN);
 bot.setWebHook(TG_WEBHOOK);
 
 app.use(logger());
+app.use(cors({
+    origin: checkOrigins,
+}));
 app.use(bodyParser());
 app.use(router.routes());
+app.use(telegram.routes());
 
 /* eslint-disable */
 router.post('/bot', ctx => {
@@ -52,18 +59,19 @@ function sendMessagesByMergeRequest(mrInfo: any) {
         { parse_mode: 'Markdown' }
     );
 };
-// app.use(pm2 install typescript
-//     cors({
-//         origin: *
-//     })
-// )
 
-const server = app
-    .listen(PORT, async () => {
-        console.log(`Server listening on port: ${PORT}`)
-    })
-    .on('error', (err: string) => {
-        console.error(err);
-    })
+// const 
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log('Connection to the database has been established successfully.');
+    await sequelize.sync();
+    console.log('All models were synchronized successfully.');
 
-export default server;
+    app.listen(PORT, () => {
+      console.log('Server is listening on port 3000');
+    });
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+})();

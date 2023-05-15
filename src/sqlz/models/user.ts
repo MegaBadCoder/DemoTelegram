@@ -28,7 +28,7 @@ User.init(
       allowNull: false,
     },
     chatId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT,
       allowNull: false,
     },
     createdAt: {

@@ -16,61 +16,83 @@ const bot = new TelegramBotService();
 // }
 
 telegram.post('/telegram', async ctx => {
+    const { body } = ctx.request;
     try {
-        const { body } = ctx.request;
+
         const { message: { text, chat }}: any = body;
         const { type, first_name, id } = chat;
 
         console.log(type, first_name, id, text);
-
-
         // TODO: Нужно обдумать вариант, когда мы нам ненужно постоянно возвращать ctx.status
         
         if (parser.parse(text) === 'start') {
-            await userContoller.checkUserOrCreate(id, first_name)
+            await userContoller.checkUserOrCreate(id, first_name);
             ctx.status = 200;
             return;
         } else if (parser.parse(text) === 'resp_review') {
-            await userContoller.setStateId(id, 1)
+            await userContoller.setStateId(id, 1);
             ctx.status = 200;
             return;
         } else if (parser.parse(text) === 'gen_descr') {
-            await userContoller.setStateId(id, 2)
+            await userContoller.setStateId(id, 2);
+            ctx.status = 200;
+            return;
+        } else if (parser.parse(text) === 'my_id') {
+            bot.sendMessage(id, id);
             ctx.status = 200;
             return;
         }
 
         const user = await userContoller.getUserInfoByChatId(id);
         if (user && user.stateId === 1) {
-            bot.sendMessage(id, 'Отзыв генерируется')
+            bot.sendMessage(id, 'Отзыв генерируется');
             ctx.status = 200;
             const result = await gpt.generateReview(text);
-            const answer = `*Настроение отзыва*: ${result.feedback_mood}\n\n*Текст:* ${result.reply_to_feedback}`
-            bot.sendMessage(id, answer)
+            const answer = `*Настроение отзыва*: ${result.feedback_mood}\n\n*Текст:* ${result.reply_to_feedback}`;
+            bot.sendMessage(id, answer);
         } else if (user && user.stateId === 2) {
-            bot.sendMessage(id, 'Запрос отправлен')
+            bot.sendMessage(id, 'Запрос отправлен');
             ctx.status = 200;
             const settings = splitStringAndRemoveFirstElement(text);
             if (settings) {
                 const { product = '', keyWords } = settings;
-                const result = await gpt.generateDescr(product, keyWords);
+                const result = await gpt.generateDescr(product, keyWords, '');
                 if (result) {
-                    bot.sendMessage(id, result)
+                    bot.sendMessage(id, result);
                 }
                 console.log(result);
             } else {
-                bot.sendMessage(id, 'Укажите как минимум 2 слова из которых первым словом должно быть название товара')
+                bot.sendMessage(id, 'Укажите как минимум 2 слова из которых первым словом должно быть название товара');
             }
         }
-
-        
-        // if (type !== 'private') return;
 
     } catch(error) {
         ctx.status = 500;
         console.error(error);
     }
     
-})
+});
+
+telegram.post('/getText', async ctx => {
+    
+    try {
+        const { body }: any = ctx.request;
+        console.log(body);
+        const { productName, keywords, chars }: any = body.params;
+    
+        console.log(1, productName, keywords, chars);
+        const result = await gpt.generateDescr(productName, keywords, chars);
+        ctx.body = {
+            description: result.text,
+            body: JSON.parse(result.body),
+        };
+        ctx.status = 200;
+    } catch(e) {
+
+        ctx.status = 500;
+        console.log(e);
+    }
+    
+});
 
 export default telegram;

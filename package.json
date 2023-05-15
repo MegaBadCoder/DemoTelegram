@@ -14,6 +14,7 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.21.3",
     "@babel/preset-typescript": "^7.21.4",
+    "@koa/cors": "^4.0.0",
     "@types/axios": "^0.14.0",
     "@types/jest": "^29.5.0",
     "@types/koa-bodyparser": "^4.3.10",
@@ -50,6 +51,7 @@
     "@babel/plugin-proposal-decorators": "*",
     "@babel/preset-env": "^7.18.2",
     "@types/koa": "^2.13.6",
+    "@types/koa__cors": "^4.0.0",
     "@types/sequelize": "^4.28.15",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4"

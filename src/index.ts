@@ -6,7 +6,7 @@ import logger from 'koa-logger';
 import { MrParser } from './models/telegram/mrParser';
 import dotenv from 'dotenv';
 import sequelize from './config/database';
-import telegram from './routes/telegram';
+import gptGenerate from './routes/telegram';
 import cors from '@koa/cors';
 import { checkOrigins } from './configs/cors';
 dotenv.config();
@@ -31,7 +31,7 @@ app.use(cors({
 }));
 app.use(bodyParser());
 app.use(router.routes());
-app.use(telegram.routes());
+app.use(gptGenerate.routes());
 
 /* eslint-disable */
 router.post('/bot', ctx => {

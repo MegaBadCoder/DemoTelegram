@@ -1,6 +1,7 @@
 import axios from 'axios';
 import dotenv from 'dotenv';
 dotenv.config();
+import { DescrParams } from '../types/description';
 
 const topic = 'https://api.openai.com/v1/chat/completions';
 const GPT_KEY = process.env.GPT_KEY || '';
@@ -11,6 +12,35 @@ const config = {
         'Content-Type': 'application/json',
     },
 };
+
+function replaceField(text: string, field: string, value: string): string {
+    const re = new RegExp(`{${field}}`);
+    return text.replace(re, value);
+}
+
+const stepwiseAnalysisByCriterion = [
+    'Ты маркетолог. Выдели основные сегменты аудитории на основе их потребностей, которые пользуются {name}, в состав которого входит {properties}.',
+    'Проанализируйте, пожалуйста, область применения {name}. Какие основные сферы и сегменты рынка могут использовать {name}, и какие преимущества он может предоставить им?',
+    'Исследуй отзывы в сети и выпиши, что больше всего не нравится клиентам в использовании {name}, в состав которого входит {properties}. Напиши список того, что больше всего не нравится теми словами, как пишут в отзывах, расположив по популярности от популярных к менее популярным',
+    'Исследуй отзывы в сети и выпиши, что больше всего нравится клиентам в использовании {name}, в состав которого входит {properties}. Напиши список того, что больше всего нравится теми словами, как пишут в отзывах, расположив по популярности от популярных к менее популярным.',
+    'Какие факторы влияют на принятие решения о покупке {name},? Протестировать еще с таким составом как {properties} , если в названии нет подробностей по товару.'
+];
+
+const rules = `
+    Строгие правила для твоего ответа.
+
+    Если не можешь придумать или найти ответ. Придумай его
+
+    Ответа выдавай в формате JSON. За пример возьми следующий образец,
+
+    {'Ключ - это Названия сегмента (На русском языке)': 'Свойство это Короткое описание сегмента (На русском языке)','Фанаты видеоигр': 'Люди которые любят играть в игры'}
+
+    -В ключах нельзя использовать SnakeCase или CamelCase - это должен быть обычный текст.
+    -Ключ начиначется с заглавной буквы. 
+    -Напиши не меньше от 10 до 13 элементов.
+    -Напиши текст без экранирования спецсимволов
+    -Необходимо, чтобы текст бы читаем как JSON для JavaScript и в нем не должно быть переноса строк
+`;
 
 const requestBody = (prompt: string) => ({
     messages: [
@@ -120,4 +150,65 @@ export default class ChatGptService {
             // throw error;
         }
     } 
+    public async stepwiseAnalysisByCriterion(productName: string, productProperties?: string, prompt_id?: number, srcPrompt?: string): Promise<any> {
+        // Мне нужно подготовить Prompt 
+        let prompt = replaceField(srcPrompt || stepwiseAnalysisByCriterion[prompt_id || 0], 'name', productName);
+        if (productProperties) {
+            prompt = replaceField(srcPrompt || stepwiseAnalysisByCriterion[prompt_id || 0], 'name', productProperties);
+        }
+
+        const basePrompt = prompt;
+        prompt += ` ${rules}`;
+
+        try {
+            const response = await axios.post(
+                topic,
+                requestBody(prompt),
+                config
+            );
+        
+            return {
+                response_gpt: {
+                    text: JSON.parse(response.data.choices[0].message.content),
+                },
+                prompt: basePrompt,
+            };
+        } catch(e) {
+            throw new Error('Ошибка при обращение на сервер OpenAi');
+        }
+    }
+    public async generateDescr2(params: DescrParams): Promise<any> {
+        let prompt: string[] | string = ['На основе следующих данных, создайте продающий и SEO-оптимизированный текст для товара:'];
+
+        const mapKey = {
+            // name_product: 'Название товара',
+            target_audience: 'Целевая аудитория',
+            consumer_objections: 'Возражения потребителей, которые встречаются при покупке товара',
+            consumer_expectations: 'Ожидания потребителей от покупки товара',
+            purchase_triggers: 'Основные факторы для принятия решения о покупке товара',
+            product_keywords: 'Ключевые слова',
+            product_characteristics: 'Характеристики товара',
+            // user_prompt: 'Поль'
+        };
+        
+        Object.entries(mapKey).forEach(([key, value]) => {
+            const paramKey = key as keyof DescrParams | 'user_prompt';
+            if (Array.isArray(prompt) && params[paramKey]) {
+                prompt.push(`${value}: ${params[paramKey]}`);
+            }
+        });
+        
+        prompt = prompt.join('\n');
+        const response = await axios.post(
+            topic,
+            requestBody(params.user_prompt || prompt),
+            config
+        );
+        return {
+            description: response.data.choices[0].message.content,
+            prompt: params.user_prompt || prompt,
+        };
+        // console.log(prompt.join('\n'));
+
+    }
 }

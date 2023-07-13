@@ -49,7 +49,6 @@ gptGenerate.get('/stepwise_analysis_by_criterion', async (ctx: Koa.Context) => {
         // TODO  Поискать информацию как нормально типизировать эту информацию 
         const { name_product, product_properties, prompt_id, prompt } = query ;
         
-        console.log(name_product);
         const result = await gpt.stepwiseAnalysisByCriterion(name_product || '', product_properties, prompt_id, prompt);
         ctx.body = result;
         ctx.status = 200;
@@ -72,7 +71,9 @@ gptGenerate.post('/generate_product_description', async (ctx: Koa.Context) => {
         
         ctx.status = 200;
     } catch(e) {
-        console.log('Ошибка в запросе');
+        ctx.body = {
+            error: 'Ошибка'
+        };
         ctx.status = 500;
         console.log(e);
     }

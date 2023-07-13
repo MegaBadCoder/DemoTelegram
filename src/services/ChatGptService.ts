@@ -37,7 +37,7 @@ const rules = `
 
     -В ключах нельзя использовать SnakeCase или CamelCase - это должен быть обычный текст.
     -Ключ начиначется с заглавной буквы. 
-    -Напиши не меньше от 10 до 13 элементов.
+    -Напиши около 7 элементов.
     -Напиши текст без экранирования спецсимволов
     -Необходимо, чтобы текст бы читаем как JSON для JavaScript и в нем не должно быть переноса строк
 `;
@@ -181,7 +181,7 @@ export default class ChatGptService {
         let prompt: string[] | string = ['На основе следующих данных, создайте продающий и SEO-оптимизированный текст для товара:'];
 
         const mapKey = {
-            // name_product: 'Название товара',
+            name_product: 'Название товара',
             target_audience: 'Целевая аудитория',
             consumer_objections: 'Возражения потребителей, которые встречаются при покупке товара',
             consumer_expectations: 'Ожидания потребителей от покупки товара',
@@ -208,7 +208,6 @@ export default class ChatGptService {
             description: response.data.choices[0].message.content,
             prompt: params.user_prompt || prompt,
         };
-        // console.log(prompt.join('\n'));
 
     }
 }

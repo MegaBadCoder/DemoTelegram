@@ -14,8 +14,6 @@ dotenv.config();
 const app = new Koa();
 const router = new Router();
 
-console.log(process.env.HOST);
-
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'https://sapienstalk.online';
 const MAIN_CHAT_ID = process.env.CHATID || '-1001686079178';
@@ -64,12 +62,10 @@ function sendMessagesByMergeRequest(mrInfo: any) {
 (async () => {
   try {
     await sequelize.authenticate();
-    console.log('Connection to the database has been established successfully.');
     await sequelize.sync();
-    console.log('All models were synchronized successfully.');
 
     app.listen(PORT, () => {
-      console.log('Server is listening on port 3000');
+      console.log(`Server is listening on port ${PORT}`);
     });
   } catch (error) {
     console.error('Unable to connect to the database:', error);
